@@ -7,7 +7,10 @@ class App extends Component {
         this.state = {
             wavesKeeper: window.WavesKeeper,
             isLogged: false,
-            address: ''
+            address: '',
+            email: '',
+            oracleAddress: '3N3CRMyAsGZnnsdrxvntQgVc1HuLn689Vpi',
+            contractAddress: ''
         };
 
         this.checkWavesKeeperInterval = setInterval(() => {
@@ -15,9 +18,29 @@ class App extends Component {
                 console.log(window.WavesKeeper);
                 this.setState({wavesKeeper: window.WavesKeeper});
                 clearInterval(this.checkWavesKeeperInterval);
+
+                window.WavesKeeper.publicState()
+                    .then(state => {
+                        console.log(state);
+                        if (state.locked === false && state.account) {
+                            this.setState({
+                                address: state.account.address,
+                                isLogged: true
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
             }
         }, 100);
     }
+
+    onChange = (e) => {
+        this.setState({
+            [e.target.dataset.field]: e.target.value
+        });
+    };
 
     onAuth = () => {
         const authData = {data: "Auth on my site"};
@@ -29,6 +52,87 @@ class App extends Component {
             })
             .catch(error => {
                 console.error(error);
+            });
+    };
+
+    onSendEmailVerification = () => {
+        // todo send data transaction to myself and send tx to oracle
+        if (!this.state.email) {
+            alert('Please, enter correct email');
+            return;
+        }
+
+        const txData = {
+            type: 12,
+            data: {
+                data: [
+                    {
+                        "key": "check_email",
+                        "type": "string",
+                        "value": this.state.email
+                    }
+                ],
+                fee: {
+                    tokens: "0.001",
+                    assetId: "WAVES"
+                }
+            }
+        };
+        this.state.wavesKeeper.signAndPublishTransaction(txData)
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    onSendData = () => {
+        /*const txData = {
+            type: 12,
+            recipient: '3N5GgjuPpQ6ihVyRGzYjs7xxm4oWeuMBPus',
+            data: {
+                recipient: '3N5GgjuPpQ6ihVyRGzYjs7xxm4oWeuMBPus',
+
+                data: [
+                    {
+                        "key": "email",
+                        "type": "string",
+                        "value": "hello@g.com"
+                    },
+                    {
+                        "key": "code_hash",
+                        "type": "string",
+                        "value": "----"
+                    }
+                ],
+                fee: {
+                    tokens: "0.01",
+                    assetId: "WAVES"
+                }
+            }
+        };*/
+        const txData = {
+            type: 4,
+            data: {
+                recipient: '3N5GgjuPpQ6ihVyRGzYjs7xxm4oWeuMBPus',
+
+                amount: {
+                    assetId: null,
+                    tokens: 0.01
+                },
+                fee: {
+                    tokens: "0.001",
+                    assetId: "WAVES"
+                }
+            }
+        };
+        this.state.wavesKeeper.signAndPublishTransaction(txData)
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
             });
     };
 
@@ -64,11 +168,24 @@ class App extends Component {
 
                             <div className="form-group">
                                 <label htmlFor="exampleInputEmail1">Email address</label>
-                                <input type="email" className="form-control" id="exampleInputEmail1"
-                                       aria-describedby="emailHelp" placeholder="Enter email"/>
+                                <input type="email"
+                                       className="form-control"
+                                       aria-describedby="emailHelp"
+                                       data-field="email"
+                                       onChange={this.onChange}
+                                       value={this.state.email}
+                                       placeholder="Enter email"/>
                             </div>
 
-                            <button className="btn btn-primary">Verify</button>
+                            <button className="btn btn-primary" onClick={this.onCheckEmail}>Verify</button>
+                            &nbsp;
+                            <button className="btn btn-secondary" onClick={this.onSendEmailVerification}>Send
+                                verification
+                            </button>
+                            &nbsp;
+                            <button className="btn btn-secondary" onClick={this.onSendData}>Send
+                                data
+                            </button>
                         </form>}
 
                         {!this.state.isLogged && <div>

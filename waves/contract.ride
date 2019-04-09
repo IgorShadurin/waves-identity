@@ -9,32 +9,23 @@ func emailPlease(email: String) = {
 }
 
 @Callable(i)
-func setOwner() = {
-    let currentKey = toBase58String(i.caller.bytes)
-    if(isDefined(getString(this, "owner"))) then throw("Owner already set")
-    else WriteSet([DataEntry("owner", currentKey)])
-}
-
-@Callable(i)
-func addCodeHash(email: String, codeHash: ByteVector) = {
-    if(!isDefined(getString(this, "owner"))) then throw("Owner not set")
-    else {
-        let currentKey = toBase58String(i.caller.bytes)
-        WriteSet([DataEntry(email + "_code_hash", codeHash)])
-    }
-}
-
-@Callable(i)
 func validateEmail(email: String, code: String) = {
-    let key = email + "_code_hash"
-    let currentKey = toBase58String(i.caller.bytes)
-    let originalCode = extract(getString(this, key))
-    let result = isDefined(getString(this, key)) && sha256(fromBase64String(code)) == fromBase64String(originalCode)
-
-     WriteSet([
-        DataEntry(email + "_is_valid", result),
-        DataEntry(email + "_owner", currentKey)
-     ])
+    let isVerifiedKey = email + "_is_valid"
+    let isVerified = isDefined(getBoolean(this, isVerifiedKey)) && extract(getBoolean(this, isVerifiedKey))
+    if (isVerified) then throw("Email already verified")
+    else {
+        let key = email + "_code_hash"
+        let currentKey = toBase58String(i.caller.bytes)
+        let originalCode = extract(getString(this, key))
+        let result = isDefined(getString(this, key)) && sha256(fromBase64String(code)) == fromBase64String(originalCode)
+        if(!result) then throw("Incorrect code")
+        else{
+            WriteSet([
+                DataEntry(email + "_is_valid", result),
+                DataEntry(email + "_owner", currentKey)
+            ])
+        }
+    }
 }
 
 @Callable(i)

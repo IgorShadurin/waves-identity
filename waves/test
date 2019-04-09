@@ -1,4 +1,4 @@
-const testEmail = 'test@ggg.com';
+const testEmail = 'zzz1@com.com';
 const oracleContract = '3N9UfhqeB5hRaKF9LvQrT3naVFJ8cPUAo1m';
 describe('Identity test suite', () => {
     it('Add email to check', async function(){

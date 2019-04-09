@@ -153,6 +153,7 @@ class App extends Component {
         broadcast(txData, nodeUrl)
             .then(resp => {
                 console.log(resp);
+                alert('OK');
             })
             .catch(() => alert('Incorrect code. Try again'));
     };

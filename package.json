@@ -1,5 +1,6 @@
 {
   "name": "waves-identity",
+  "homepage": "https://testeron.pro/waves-identity",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

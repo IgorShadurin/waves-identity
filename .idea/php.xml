@@ -77,6 +77,9 @@
       <path value="$PROJECT_DIR$/app-verificator/vendor/deemru/blake2b" />
       <path value="$PROJECT_DIR$/app-verificator/vendor/deemru/curve25519" />
       <path value="$PROJECT_DIR$/app-verificator/vendor/deemru/waveskit" />
+      <path value="$PROJECT_DIR$/app-verificator/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/app-verificator/vendor/mailjet/mailjet-apiv3-php" />
+      <path value="$PROJECT_DIR$/app-verificator/vendor/guzzlehttp/guzzle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />

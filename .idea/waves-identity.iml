@@ -25,7 +25,10 @@
       <excludeFolder url="file://$MODULE_DIR$/app-verificator/vendor/egulias/email-validator" />
       <excludeFolder url="file://$MODULE_DIR$/app-verificator/vendor/ezyang/htmlpurifier" />
       <excludeFolder url="file://$MODULE_DIR$/app-verificator/vendor/fzaninotto/faker" />
+      <excludeFolder url="file://$MODULE_DIR$/app-verificator/vendor/guzzlehttp/guzzle" />
+      <excludeFolder url="file://$MODULE_DIR$/app-verificator/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/app-verificator/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/app-verificator/vendor/mailjet/mailjet-apiv3-php" />
       <excludeFolder url="file://$MODULE_DIR$/app-verificator/vendor/myclabs/deep-copy" />
       <excludeFolder url="file://$MODULE_DIR$/app-verificator/vendor/phar-io/manifest" />
       <excludeFolder url="file://$MODULE_DIR$/app-verificator/vendor/phar-io/version" />

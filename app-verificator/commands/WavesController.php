@@ -3,6 +3,7 @@
 
 namespace app\commands;
 
+use Mailjet\Resources;
 use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
@@ -21,12 +22,7 @@ class WavesController extends Controller
 
     public function actionTestMail($email, $title, $text)
     {
-        Yii::$app->mailer->compose()
-            ->setTo($email)
-            ->setSubject($title)
-            ->setTextBody($text)
-            //->setHtmlBody('<b>текст сообщения в формате HTML</b>')
-            ->send();
+        $this->sendMail($email, $title, $text);
     }
 
     public function actionEmail()
@@ -68,13 +64,34 @@ class WavesController extends Controller
 
     private function sendMail($toEmail, $title, $text)
     {
-        Yii::$app->mailer->compose()
+        /*Yii::$app->mailer->compose()
             ->setFrom('bel.temp.mail@yandex.ru')
             ->setTo($toEmail)
             ->setSubject($title)
             ->setTextBody($text)
             //->setHtmlBody('<b>текст сообщения в формате HTML</b>')
-            ->send();
+            ->send();*/
+        $mj = new \Mailjet\Client(Yii::$app->params['jet_public'], Yii::$app->params['jet_private'], true, ['version' => 'v3.1']);
+        $body = [
+            'Messages' => [
+                [
+                    'From' => [
+                        'Email' => "bel.temp.mail@ya.ru",
+                        'Name' => "Waves Validator"
+                    ],
+                    'To' => [
+                        [
+                            'Email' => $toEmail,
+                        ]
+                    ],
+                    'Subject' => $title,
+                    'TextPart' => $text,
+                ]
+            ]
+        ];
+        $response = $mj->post(Resources::$Email, ['body' => $body]);
+        var_dump($response);
+        $response->success() && var_dump($response->getData());
     }
 
     private function log($text)

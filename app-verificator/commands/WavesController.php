@@ -19,6 +19,16 @@ class WavesController extends Controller
         return ExitCode::OK;
     }
 
+    public function actionTestMail($email, $title, $text)
+    {
+        Yii::$app->mailer->compose()
+            ->setTo($email)
+            ->setSubject($title)
+            ->setTextBody($text)
+            //->setHtmlBody('<b>текст сообщения в формате HTML</b>')
+            ->send();
+    }
+
     public function actionEmail()
     {
         $oracleAddress = '3N9UfhqeB5hRaKF9LvQrT3naVFJ8cPUAo1m';
@@ -59,7 +69,7 @@ class WavesController extends Controller
     private function sendMail($toEmail, $title, $text)
     {
         Yii::$app->mailer->compose()
-            ->setFrom('waves.temp@yandex.ru')
+            ->setFrom('bel.temp.mail@yandex.ru')
             ->setTo($toEmail)
             ->setSubject($title)
             ->setTextBody($text)

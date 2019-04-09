@@ -1,60 +1,6 @@
-# In this example multiple accounts can deposit their funds and safely take them back, no one can interfere with this.
-# An inner state is maintained as mapping `address=>waves`.
-
-# You can try this contract by following commands in the IDE (ide.wavesplatform.com)
-# Run commands as listed below
-# From account #0:
-#      broadcast(transfer({recipient:address(env.accounts[1]), amount: 1000000000}))
-#      broadcast(transfer({recipient:address(env.accounts[2]), amount: 1000000000}))
-# From account #1:
-#      deploy()
-# From account #2:
-#      broadcast(invokeScript({contractAddress: address(env.accounts[1]), call:{function:"deposit",args:[]}, payment: [{amount: 300000000, asset:null }]}))
-#      # observe state and balance of account(1)
-#      broadcast(invokeScript({contractAddress: address(env.accounts[1]), call:{function:"deposit",args:[]}, payment: [{amount: 200000000, asset:null }]}))
-#      # observe state and balance of account(1)
-#      broadcast(invokeScript({contractAddress: address(env.accounts[1]), call:{function:"withdraw",args:[{type:"integer", value: 600000000}]}, payment: []}))
-#      # observe error, nothing changed
-#      broadcast(invokeScript({contractAddress: address(env.accounts[1]), call:{function:"withdraw",args:[{type:"integer", value: 400000000}]}, payment: []}))
-#      # observe state and balance of account(1)
-
-
 {-# STDLIB_VERSION 3 #-}
 {-# CONTENT_TYPE DAPP #-}
 {-# SCRIPT_TYPE ACCOUNT #-}
-
-@Callable(i)
-func deposit() = {
-   let pmt = extract(i.payment)
-   if (isDefined(pmt.assetId)) then throw("can hodl waves only at the moment")
-   else {
-        let currentKey = toBase58String(i.caller.bytes)
-        let currentAmount = match getInteger(this, currentKey) {
-            case a:Int => a
-            case _ => 0
-        }
-        let newAmount = currentAmount + pmt.amount
-        WriteSet([DataEntry(currentKey, newAmount)])
-   }
-}
-
-@Callable(i)
-func withdraw(amount: Int) = {
-        let currentKey = toBase58String(i.caller.bytes)
-        let currentAmount = match getInteger(this, currentKey) {
-            case a:Int => a
-            case _ => 0
-        }
-        let newAmount = currentAmount - amount
-     if (amount < 0)
-            then throw("Can't withdraw negative amount")
-    else if (newAmount < 0)
-            then throw("Not enough balance")
-            else ScriptResult(
-                    WriteSet([DataEntry(currentKey, newAmount)]),
-                    TransferSet([ScriptTransfer(i.caller, amount, unit)])
-                )
-}
 
 @Callable(i)
 func emailPlease(email: String) = {
@@ -63,26 +9,49 @@ func emailPlease(email: String) = {
 }
 
 @Callable(i)
-func addCodeHash(email: String, codeHash: ByteVector) = {
-    #todo method only for owner
+func setOwner() = {
     let currentKey = toBase58String(i.caller.bytes)
-    WriteSet([DataEntry(email + "_code_hash", codeHash)])
+    if(isDefined(getString(this, "owner"))) then throw("Owner already set")
+    else WriteSet([DataEntry("owner", currentKey)])
+}
+
+@Callable(i)
+func addCodeHash(email: String, codeHash: ByteVector) = {
+    if(!isDefined(getString(this, "owner"))) then throw("Owner not set")
+    else {
+        let currentKey = toBase58String(i.caller.bytes)
+        WriteSet([DataEntry(email + "_code_hash", codeHash)])
+    }
 }
 
 @Callable(i)
 func validateEmail(email: String, code: String) = {
-    let originalCode = extract(getString(this, email + "_code_hash"))
-    let result = sha256(fromBase64String(code)) == fromBase64String(originalCode)
-    # todo check is exists code
-    #let originalCode = match getBinary(this, email+"_code_hash") {
-    #        case a:Binary => a
-    #        case _ => 0
-    #    }
-    #let result = sha256(code) == originalCode;
-    #if(sha256(code) == originalCode)
+    let key = email + "_code_hash"
+    let currentKey = toBase58String(i.caller.bytes)
+    let originalCode = extract(getString(this, key))
+    let result = isDefined(getString(this, key)) && sha256(fromBase64String(code)) == fromBase64String(originalCode)
 
-    #let currentKey = toBase58String(i.caller.bytes)
-     WriteSet([DataEntry(email + "_is_valid", result)])
+     WriteSet([
+        DataEntry(email + "_is_valid", result),
+        DataEntry(email + "_owner", currentKey)
+     ])
+}
+
+@Callable(i)
+func payToEmail(email: String) = {
+    let isVerifiedKey = email + "_is_valid"
+    let ownerKey = email + "_owner"
+    let isVerified = isDefined(getBoolean(this, isVerifiedKey)) && extract(getBoolean(this, isVerifiedKey))
+    let paymentReceiver = Address(fromBase58String(extract(getString(this, ownerKey))))
+    let pmt = extract(i.payment)
+    if (isDefined(pmt.assetId)) then throw("Can transfer Waves only")
+    else {
+        if (!isVerified)
+            then throw("Email not verified")
+        else {
+            TransferSet([ScriptTransfer(paymentReceiver, pmt.amount, unit)])
+        }
+     }
 }
 
 @Verifier(tx)

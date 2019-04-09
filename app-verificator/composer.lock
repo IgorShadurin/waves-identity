@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5fab93c4c3f2210b1dcdb07ae50e2c9c",
+    "content-hash": "322688232e541f5ac8ba97b2b1f75f1d",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -166,6 +166,341 @@
                 "markdown-extra"
             ],
             "time": "2018-03-26T11:24:36+00:00"
+        },
+        {
+            "name": "composer/ca-bundle",
+            "version": "1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/ca-bundle.git",
+                "reference": "558f321c52faeb4828c03e7dc0cfe39a09e09a2d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/558f321c52faeb4828c03e7dc0cfe39a09e09a2d",
+                "reference": "558f321c52faeb4828c03e7dc0cfe39a09e09a2d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "ext-pcre": "*",
+                "php": "^5.3.2 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5",
+                "psr/log": "^1.0",
+                "symfony/process": "^2.5 || ^3.0 || ^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\CaBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "Lets you find a path to the system CA bundle, and includes a fallback to the Mozilla CA bundle.",
+            "keywords": [
+                "cabundle",
+                "cacert",
+                "certificate",
+                "ssl",
+                "tls"
+            ],
+            "time": "2019-01-28T09:30:10+00:00"
+        },
+        {
+            "name": "deemru/abcode",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deemru/ABCode.git",
+                "reference": "3e08d6354c1636ebbd01b92586bcad54ad7e425c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deemru/ABCode/zipball/3e08d6354c1636ebbd01b92586bcad54ad7e425c",
+                "reference": "3e08d6354c1636ebbd01b92586bcad54ad7e425c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gmp": "*",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "deemru\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitrii Pichulin",
+                    "email": "deem@deem.ru"
+                }
+            ],
+            "description": "ABC (alphabet) encode/decode",
+            "homepage": "https://github.com/deemru/ABCode",
+            "keywords": [
+                "base26",
+                "base36",
+                "base52",
+                "base58",
+                "base62",
+                "baseN",
+                "baseNN",
+                "baseNNN"
+            ],
+            "time": "2019-01-19T11:00:45+00:00"
+        },
+        {
+            "name": "deemru/blake2b",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deemru/Blake2b.git",
+                "reference": "d7bd270d820fcad53b9a30a620075f4039cd6967"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deemru/Blake2b/zipball/d7bd270d820fcad53b9a30a620075f4039cd6967",
+                "reference": "d7bd270d820fcad53b9a30a620075f4039cd6967",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "deemru\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitrii Pichulin",
+                    "email": "deem@deem.ru"
+                }
+            ],
+            "description": "BLAKE2 hash function on pure PHP",
+            "homepage": "https://github.com/deemru/Blake2b",
+            "keywords": [
+                "BLAKE2",
+                "BLAKE2b",
+                "blake2b256",
+                "hash",
+                "wavesplatform"
+            ],
+            "time": "2019-02-03T14:36:24+00:00"
+        },
+        {
+            "name": "deemru/cryptash",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deemru/Cryptash.git",
+                "reference": "c539e88b8e5c79c7dd8b54d480ed083f70eaa1fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deemru/Cryptash/zipball/c539e88b8e5c79c7dd8b54d480ed083f70eaa1fe",
+                "reference": "c539e88b8e5c79c7dd8b54d480ed083f70eaa1fe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "deemru\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitrii Pichulin",
+                    "email": "deem@deem.ru"
+                }
+            ],
+            "description": "Hash-based encrypt/decrypt",
+            "homepage": "https://github.com/deemru/Cryptash",
+            "keywords": [
+                "authenticity",
+                "confidentiality",
+                "cryptography",
+                "integrity"
+            ],
+            "time": "2019-01-19T17:51:02+00:00"
+        },
+        {
+            "name": "deemru/curve25519",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deemru/Curve25519.git",
+                "reference": "0ba56fa566f4a29b06126465b9ebbe59c915ffbd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deemru/Curve25519/zipball/0ba56fa566f4a29b06126465b9ebbe59c915ffbd",
+                "reference": "0ba56fa566f4a29b06126465b9ebbe59c915ffbd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "deemru/abcode": "1.0.*"
+            },
+            "suggest": {
+                "ext-sodium": "Up to ~2000x faster sign/verify"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "deemru\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitrii Pichulin",
+                    "email": "deem@deem.ru"
+                }
+            ],
+            "description": "Curve25519 sign/verify",
+            "homepage": "https://github.com/deemru/Curve25519",
+            "keywords": [
+                "Curve25519",
+                "sign",
+                "verify",
+                "wavesplatform"
+            ],
+            "time": "2019-03-16T23:34:37+00:00"
+        },
+        {
+            "name": "deemru/pairs",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deemru/Pairs.git",
+                "reference": "6e1fe616e5ed4fb24aac9a13a456c3f3d15d0608"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deemru/Pairs/zipball/6e1fe616e5ed4fb24aac9a13a456c3f3d15d0608",
+                "reference": "6e1fe616e5ed4fb24aac9a13a456c3f3d15d0608",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo_sqlite": "*",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "deemru\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitrii Pichulin",
+                    "email": "deem@deem.ru"
+                }
+            ],
+            "description": "Simple key-value SQLite storage",
+            "homepage": "https://github.com/deemru/Pairs",
+            "keywords": [
+                "database",
+                "key-value",
+                "sqlite"
+            ],
+            "time": "2019-02-16T20:44:37+00:00"
+        },
+        {
+            "name": "deemru/waveskit",
+            "version": "1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deemru/WavesKit.git",
+                "reference": "4825255bb4eb06f17901116bfe2d7495f1a47eef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deemru/WavesKit/zipball/4825255bb4eb06f17901116bfe2d7495f1a47eef",
+                "reference": "4825255bb4eb06f17901116bfe2d7495f1a47eef",
+                "shasum": ""
+            },
+            "require": {
+                "composer/ca-bundle": "*",
+                "deemru/abcode": "1.0.*",
+                "deemru/blake2b": "1.0.*",
+                "deemru/cryptash": "1.0.*",
+                "deemru/curve25519": "1.0.*",
+                "deemru/pairs": "1.0.*",
+                "ext-curl": "*",
+                "ext-gmp": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.6"
+            },
+            "suggest": {
+                "ext-sodium": "Up to ~2000x faster sign/verify"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "deemru\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitrii Pichulin",
+                    "email": "deem@deem.ru"
+                }
+            ],
+            "description": "Waves Platform Development Kit",
+            "homepage": "http://github.com/deemru/WavesKit",
+            "keywords": [
+                "wavesplatform"
+            ],
+            "time": "2019-04-05T14:34:35+00:00"
         },
         {
             "name": "doctrine/lexer",

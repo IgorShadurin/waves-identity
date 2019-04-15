@@ -18,7 +18,8 @@ class App extends Component {
             emailCode: '',
             toEmail: '',
             toAmount: '0.01',
-            page: 'registration'
+            page: 'registration',
+            chainId: 'T'
         };
 
         this.checkWavesKeeperInterval = setInterval(() => {
@@ -107,8 +108,8 @@ class App extends Component {
                 ]
             },
             senderPublicKey: this.state.senderPublicKey.trim(),
-            seed: this.state.senderSeed.trim()
-        });
+            chainId: this.state.chainId,
+        }, this.state.senderSeed.trim());
 
 
         const nodeUrl = 'https://testnodes.wavesnodes.com';
@@ -146,8 +147,8 @@ class App extends Component {
                 ]
             },
             senderPublicKey: this.state.senderPublicKey.trim(),
-            seed: this.state.senderSeed.trim()
-        });
+            chainId: this.state.chainId,
+        }, this.state.senderSeed.trim());
 
         const nodeUrl = 'https://testnodes.wavesnodes.com';
         broadcast(txData, nodeUrl)
@@ -185,8 +186,8 @@ class App extends Component {
             },
             payment: [{amount: this.state.toAmount * 100000000, asset: null}],
             senderPublicKey: this.state.senderPublicKey.trim(),
-            seed: this.state.senderSeed.trim()
-        });
+            chainId: this.state.chainId,
+        }, this.state.senderSeed.trim());
 
         console.log(txData);
 
